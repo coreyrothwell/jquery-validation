@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<link rel="stylesheet" href="_css/style-v2.css">
+	<link rel="stylesheet" href="_css/bootstrap.min.css">
+	<style>
+	body {
+		margin: 25px;
+	}
+	input.invalid, textarea.invalid {
+		border: 1px solid #f00 !important;
+		font-weight: 400;
+		font-size: 1em;
+		color: #555;
+		background: #e5b7b7;
+	}
+	div.invalid {
+		margin-bottom: 10px;
+	}
+	.good {
+		border: 1px solid #060 !important;
+	}
+	.invalid {
+		font-weight: 700;
+		color: #f00;
+	}
+	.container-fluid {
+		max-width: 800px;
+		margin: 20px auto;
+	}
+	</style>
+</head>
+<body>
+
+<div class="container-fluid">
+
+	<div class="row-fluid">
+		<div class="span12">
+			<h1>Form Validation Sample</h1>
+		</div>
+	</div>
+
+	<form action="" id="formy" method="get">
+
+	<div class="row-fluid">
+		
+		<div class="span8">
+			<label for="name">Name</label>
+			<input id="name" name="name" type="text" class="span12">
+		</div>
+
+		<div class="span4">
+			<label for="zip">Zipcode</label>
+			<input id="zip" name="zip" type="text" class="required digits span12">
+		</div>
+		
+
+	</div>
+	<div class="row-fluid">
+
+
+		<div class="span6">
+			<label for="web">Website</label>
+			<input id="web" name="web" type="text" class="span12 required">		
+		</div>
+
+		<div class="span6">
+			<label for="email">Email</label>
+			<input id="email" name="email" type="text" class="span12 required">
+		</div>
+
+	</div>
+	<div class="row-fluid">
+		
+		<div class="span12">
+			<label for="comment">Comment</label>
+			<textarea name="comment" id="comment" cols="30" rows="10" class="span12"></textarea>
+		</div>
+
+	</div>
+	<div class="row-fluid">
+		<input type="submit" value="Go" class="btn btn-large btn-success">
+	</div>
+
+	</form>
+
+
+<div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="jquery.validate.js"></script>
+<script>
+
+	$(function() {
+
+
+
+		// temp to turn off autocompletes in form
+		$('input').attr('autocomplete','off');
+
+		// obviously not usable
+		$.validator.addMethod('test',function(value,el){
+			if(value === 'a'){
+				return 1;
+			} else {
+				return 0;
+			}
+		}, 'Enter only an "a"');
+
+
+
+
+		$('#formy').validate({
+
+			onKeyup: true,
+			validClass: 'good',
+			errorClass: 'invalid',
+			errorElement: 'div',
+
+			// change these as needed
+			rules: {
+				name: {
+					test: true
+				},
+				zip: {
+					minlength: 5
+				},
+				web: {
+					url: true
+				},
+				email: {
+					email: true
+				},
+				comment: {
+					required: true,
+					minlength: 20
+				}
+			},
+			messages: {
+				email: {
+					required: "You Must enter an email!!!!!!!!!!",
+					email: "Invalid email. jeez."
+				},
+				zip: {
+					digits: 'Only digits ya DUMMY!'
+				}
+			}
+
+		});
+	});
+</script>
+</body>
+</html>
